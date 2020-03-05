@@ -1,5 +1,3 @@
-const Logger = require('../logger/Logger');
-
 module.exports = class {
 	constructor(driver, builder, filter, filterStrategy) {
 		this.driver = driver;
@@ -24,8 +22,6 @@ module.exports = class {
 				}
 				
 				reject(data);
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}
@@ -35,8 +31,6 @@ module.exports = class {
 			this.findAll()
 			.then(movies => {
 				resolve(this.filterData(filtersData, movies));
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 		
@@ -69,12 +63,8 @@ module.exports = class {
 					this.driver.save(JSON.stringify(parsedData, null, 4))
 					.then((data) => {
 						resolve(data);
-					}).catch(error => {
-						Logger.error(error);
 					});
 				}
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}

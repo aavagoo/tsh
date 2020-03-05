@@ -1,5 +1,3 @@
-const Logger = require('../logger/Logger');
-
 module.exports = class {
 	constructor(genreRepository) {
 		this.genreRepository = genreRepository;
@@ -10,8 +8,6 @@ module.exports = class {
 			this.genreRepository.findAll()
 			.then((data) => {
 				resolve(data);
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}

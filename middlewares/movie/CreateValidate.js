@@ -2,7 +2,6 @@ const {check, validationResult} = require('express-validator');
 const GenreRepository = require('../../repository/GenreRepository');
 const GenreService = require('../../services/GenreService');
 const FileDriver = require('../../drivers/FileDriver');
-const Logger = require('../../logger/Logger');
 
 exports.validate = [
 	check('title').not().isEmpty().withMessage('Title is required'),
@@ -32,7 +31,5 @@ exports.checkValidation = (req, res, next) => {
 			validated: req.body,
 			errors: errors.mapped(),
 		});
-	}).catch(error => {
-		Logger.error(error);
 	});
 };

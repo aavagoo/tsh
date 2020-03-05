@@ -5,10 +5,8 @@ const GenreService = require('../services/GenreService');
 const FileDriver = require('../drivers/FileDriver');
 const MovieFilterFactory = require('../filters/movie/FilterFactory');
 const MovieBuilder = require('../builders/MovieBuilder');
-const Logger = require('../logger/Logger');
 const FilteringStrategy = require('../strategy/MovieFilteringStrategy');
 const Filter = require('../filters/movie/Filter');
-
 
 exports.list = (req, res) => {
 	const movieRepository = new MovieRepository(new FileDriver(), new MovieBuilder(), new MovieFilterFactory()),
@@ -19,8 +17,6 @@ exports.list = (req, res) => {
 		res.render('movie/list', {
 			movies: data
 		});
-	}).catch(error => {
-		Logger.error(error);
 	});
 };
 
@@ -42,11 +38,7 @@ exports.listFilter = (req, res) => {
 				genres: genres,
 				filters: req.query
 			});
-		}).catch(error => {
-			Logger.error(error);
 		});
-	}).catch(error => {
-		Logger.error(error);
 	});
 };
 
@@ -58,8 +50,6 @@ exports.add = (req, res) => {
 		res.render('movie/add', {
 			genres: data
 		});
-	}).catch(error => {
-		Logger.error(error);
 	});
 };
 
@@ -70,7 +60,5 @@ exports.create = (req, res) => {
 	movieService.addMovie(req.body)
 	.then(() => {
 		res.render('index');
-	}).catch(error => {
-		Logger.error(error);
 	});
 };

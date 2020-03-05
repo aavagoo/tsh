@@ -1,5 +1,3 @@
-const Logger = require('../logger/Logger');
-
 module.exports = class {
 	constructor(driver) {
 		this.driver = driver;
@@ -16,11 +14,7 @@ module.exports = class {
 				}
 				
 				reject(data);
-			}).catch(error => {
-				Logger.error(error);
-			})
-		}).catch(error => {
-			Logger.error(error);
+			});
 		});
 	}
 };

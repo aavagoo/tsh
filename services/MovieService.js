@@ -1,5 +1,3 @@
-const Logger = require('../logger/Logger');
-
 module.exports = class {
 	constructor(movieRepository) {
 		this.movieRepository = movieRepository;
@@ -10,8 +8,6 @@ module.exports = class {
 			this.movieRepository.findAll()
 			.then((data) => {
 				resolve(data);
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}
@@ -21,8 +17,6 @@ module.exports = class {
 			this.movieRepository.findWithFilters(filterData)
 			.then((data) => {
 				resolve(data);
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}
@@ -32,8 +26,6 @@ module.exports = class {
 			this.movieRepository.save(movie)
 			.then((data) => {
 				resolve(data);
-			}).catch(error => {
-				Logger.error(error);
 			});
 		});
 	}
