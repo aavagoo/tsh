@@ -16,6 +16,17 @@ module.exports = class {
 		});
 	}
 	
+	getMoviesWithFilter(filterData) {
+		return new Promise((resolve, reject) => {
+			this.movieRepository.findWithFilters(filterData)
+			.then((data) => {
+				resolve(data);
+			}).catch(error => {
+				Logger.error(error);
+			});
+		});
+	}
+	
 	addMovie(movie) {
 		return new Promise((resolve, reject) => {
 			this.movieRepository.save(movie)

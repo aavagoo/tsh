@@ -1,9 +1,11 @@
 const Logger = require('../logger/Logger');
 
 module.exports = class {
-	constructor(driver, builder) {
+	constructor(driver, builder, filter, filterStrategy) {
 		this.driver = driver;
 		this.builder = builder;
+		this.filter = filter;
+		this.filterStrategy = filterStrategy;
 	}
 	
 	findAll() {
@@ -26,6 +28,28 @@ module.exports = class {
 				Logger.error(error);
 			});
 		});
+	}
+	
+	findWithFilters(filtersData) {
+		return new Promise((resolve, reject) => {
+			this.findAll()
+			.then(movies => {
+				resolve(this.filterData(filtersData, movies));
+			}).catch(error => {
+				Logger.error(error);
+			});
+		});
+		
+	}
+	
+	filterData(filtersData, data) {
+		let filteredData = this.filter.filter(data);
+		
+		if (this.filterStrategy.isRandomFiltering(filtersData)) {
+			filteredData = [filteredData[Math.floor(Math.random() * filteredData.length)]];
+		}
+		
+		return filteredData;
 	}
 	
 	save(data) {

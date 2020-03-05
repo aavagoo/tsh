@@ -1,0 +1,53 @@
+extends ../layout
+
+mixin moviePoster(posterUrl)
+    td
+        img(src=posterUrl width="150px")
+
+mixin movieTr(movie)
+    tr
+        td= movie.id
+        td= movie.title
+        td= movie.year
+        td= movie.runtime
+        td= movie.genres
+        td= movie.director
+        td= movie.actors
+        td= movie.plot
+        +moviePoster(movie.posterUrl)
+
+block content
+    #wrapper
+        .row
+            .col-12
+                h3 Filters
+        .row
+            .filters.col-12
+                form(action="/movie/list-filter" method="get").form-inline
+                    .form-group.col-3
+                        input.form-control(style={'width' : '100%'} type="number" name="durationFrom" placeholder="Duration from" value=filters && filters.durationFrom ? filters.durationFrom : '')
+                    .form-group.col-3
+                        input.form-control(style={'width' : '100%'} type="number" name="durationTo" placeholder="Duration to" value=filters && filters.durationTo ? filters.durationTo : '')
+                    .form-group.col-3
+                        select.form-control(style={'width' : '100%'} name="genres[]" multiple)
+                            option(value="" selected=(!filters || !filters.genres) disabled)= "Choose genres"
+                            each option in genres
+                                option(value=option selected=(filters && filters.genres && filters.genres.indexOf(option) !== -1))= option
+                    .col-3
+                        button.btn.btn-primary(type='submit') Filter
+        .row.mt-5
+            table.table
+                thead
+                    tr
+                        th No.
+                        th Title
+                        th Year
+                        th Runtime
+                        th Genres
+                        th Director
+                        th Actors
+                        th Plot
+                        th Poster
+                tbody
+                    each movie in movies
+                        +movieTr(movie)
