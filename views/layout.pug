@@ -1,0 +1,18 @@
+doctype html
+html
+    include head
+    body
+        #wrapper.d-flex
+            #sidebar-wrapper.bg-light.border-right
+                .sidebar-heading TSH movie library
+                .list-group.list-group-flush
+                    a.list-group-item.list-group-item-action.bg-light(href="/movie/list") Movie list
+                    a.list-group-item.list-group-item-action.bg-light(href="/movie/list-filter") Movie filters
+                    a.list-group-item.list-group-item-action.bg-light(href="/movie/add") Create movie
+                    a.list-group-item.list-group-item-action.bg-light(href="/genre/list") Genre list
+            #page-content-wrapper
+                .container-fluid
+                    block response
+                    block content
+
+
