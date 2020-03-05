@@ -1,0 +1,36 @@
+extends ../layout
+
+mixin moviePoster(posterUrl)
+    td
+        img(src=posterUrl width="150px")
+
+mixin movieTr(movie)
+    tr
+        td= movie.id
+        td= movie.title
+        td= movie.year
+        td= movie.runtime
+        td= movie.genres
+        td= movie.director
+        td= movie.actors
+        td= movie.plot
+        +moviePoster(movie.posterUrl)
+
+block content
+    table.table
+        thead
+            tr
+                th No.
+                th Title
+                th Year
+                th Runtime
+                th Genres
+                th Director
+                th Actors
+                th Plot
+                th Poster
+        tbody
+            each movie in movies
+                +movieTr(movie)
+
+

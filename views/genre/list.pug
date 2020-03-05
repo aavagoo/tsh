@@ -1,0 +1,9 @@
+extends ../layout
+
+mixin genreLi(name)
+    li= name
+
+block content
+    ul
+        each genre in genres
+            +genreLi(genre)
