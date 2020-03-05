@@ -1,0 +1,44 @@
+extends ../layout
+
+mixin formSelect(name, displayName, options, required)
+    .form-group
+        label(for=name)= displayName
+        select.form-control(required=required name=name placeholder=displayName multiple)
+            option(value="" selected=(!validated || !validated[name]) disabled)= "Choose " + displayName
+            each option in options
+                option(value=option selected=(validated && validated[name] && validated[name].indexOf(option) !== -1))= option
+
+mixin formInput(name, displayName, type, required, maxLength)
+    .form-group
+        label(for=name)= displayName
+        input.form-control(type=type required=required name=name placeholder=displayName maxlength=maxLength ? maxLength : '' value=validated ? validated[name] : '')
+
+mixin formTextarea(name, displayName, required)
+    .form-group
+        label(for=name)= displayName
+        textarea.form-control(required=required name=name placeholder=displayName value=validated ? validated[name] : '')
+
+mixin errorsBlock(errors)
+    .alert.alert-danger
+        h2 Form is invalid, please pass correct data
+        ul
+            each error in errors
+                li= error.msg + ". Value: " + error.value
+
+block content
+    if (errors)
+        +errorsBlock(errors)
+    h1 Add movie
+    form(action="/movie/create" method="post")
+        +formSelect('genres', 'Genres', genres, true)
+        +formInput('title', 'Title', 'text', true, 255)
+        +formInput('year', 'Year', 'number', true)
+        +formInput('runtime', 'Runtime', 'number', true)
+        +formInput('director', 'Director', 'text', true, 255)
+        +formInput('actors', 'Actors', 'text', false)
+        +formTextarea('plot', 'Plot', false)
+        +formInput('posterUrl', 'Poster URL', 'text', false)
+        button.btn.btn-primary(type='submit') Add movie
+
+
+

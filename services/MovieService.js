@@ -15,4 +15,15 @@ module.exports = class {
 			});
 		});
 	}
+	
+	addMovie(movie) {
+		return new Promise((resolve, reject) => {
+			this.movieRepository.save(movie)
+			.then((data) => {
+				resolve(data);
+			}).catch(error => {
+				Logger.error(error);
+			});
+		});
+	}
 };
